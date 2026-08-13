@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Private Letter</title>
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --text: #3c3731;
+      --muted: #8a8178;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .ink {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 { width: 320px; height: 320px; background: rgba(225,185,140,0.22); top: 15%; left: 10%; }
+    .glow-2 { width: 300px; height: 300px; background: rgba(200,155,145,0.15); bottom: 12%; right: 8%; }
+
+    .locker {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 340px;
+      padding: 2rem 1.75rem 1.75rem;
+      border-radius: 1.8rem;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.75);
+      box-shadow:
+        0 18px 40px -8px rgba(0,0,0,0.12),
+        0 4px 12px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(255,255,255,0.15);
+      animation: rise 0.7s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .header { text-align: center; margin-bottom: 2rem; }
+    .header p { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    .header h1 { margin-top: 0.4rem; font-size: 1.3rem; font-weight: 600; color: var(--text); }
+    .digits { display: flex; justify-content: center; gap: 0.7rem; margin-bottom: 2.2rem; }
+    .digit {
+      width: 3.4rem; height: 3.4rem; border-radius: 1.15rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.45rem; font-weight: 500; color: var(--text);
+      background: rgba(255,255,255,0.28);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.85);
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .digit.filled { background: rgba(255,255,255,0.55); }
+    .digit.error { background: rgba(248,210,210,0.45); border-color: rgba(220,150,150,0.5); animation: shake 0.4s ease; }
+    .digit.success { background: rgba(210,235,210,0.4); border-color: rgba(140,190,140,0.45); }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .digit span { display: inline-block; animation: pop 0.28s cubic-bezier(0.34,1.4,0.64,1); }
+    @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .pad { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; }
+    .key {
+      height: 3.5rem; border-radius: 1.2rem;
+      border: 1px solid rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.28);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.85);
+      font-size: 1.3rem; font-weight: 500; color: var(--text);
+      cursor: pointer; user-select: none;
+      transition: transform 0.15s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .key:active { transform: scale(0.92); }
+    .key.empty { visibility: hidden; pointer-events: none; }
+    .key.delete { font-size: 1.05rem; color: var(--muted); }
+    .hint { margin-top: 1.6rem; text-align: center; font-size: 0.72rem; color: var(--muted); }
+    .locker.leaving { animation: leave 0.55s cubic-bezier(0.4,0,0.2,1) forwards; }
+    @keyframes leave { to { opacity: 0; transform: scale(0.94) translateY(-12px); } }
+    @media (max-width: 380px) {
+      .locker { max-width: 300px; padding: 1.6rem 1.3rem 1.4rem; }
+      .digit { width: 3rem; height: 3rem; font-size: 1.3rem; }
+      .key { height: 3.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="ink" id="ink1"></div>
+  <div class="ink" id="ink2"></div>
+  <div class="ink" id="ink3"></div>
+  <div class="ink" id="ink4"></div>
+  <div class="ink" id="ink5"></div>
+  <div class="ink" id="ink6"></div>
+
+  <div class="locker" id="locker">
+    <div class="header">
+      <p>Private Letter</p>
+      <h1>Enter the code</h1>
+    </div>
+    <div class="digits" id="digits">
+      <div class="digit" data-index="0"></div>
+      <div class="digit" data-index="1"></div>
+      <div class="digit" data-index="2"></div>
+      <div class="digit" data-index="3"></div>
+    </div>
+    <div class="pad" id="pad">
+      <button class="key" data-value="1">1</button>
+      <button class="key" data-value="2">2</button>
+      <button class="key" data-value="3">3</button>
+      <button class="key" data-value="4">4</button>
+      <button class="key" data-value="5">5</button>
+      <button class="key" data-value="6">6</button>
+      <button class="key" data-value="7">7</button>
+      <button class="key" data-value="8">8</button>
+      <button class="key" data-value="9">9</button>
+      <button class="key empty"></button>
+      <button class="key" data-value="0">0</button>
+      <button class="key delete" data-value="delete">⌫</button>
+    </div>
+    <p class="hint">4 digits</p>
+  </div>
+
+  <script>
+    const colors = ['#c9a88a','#b07d6c','#9a7560','#d2b48c','#a67c5d','#c4a07a','#b8956e'];
+    function random(min,max){return Math.random()*(max-min)+min;}
+    function createBorderRadius(){
+      const a=random(30,70),b=100-a,c=random(30,70),d=100-c,e=random(35,65),f=100-e,g=random(35,65),h=100-g;
+      return a+'% '+b+'% '+c+'% '+d+'% / '+e+'% '+f+'% '+g+'% '+h+'%';
+    }
+    function placeInk(){
+      const inks=document.querySelectorAll('.ink');
+      const vw=window.innerWidth, vh=window.innerHeight;
+      const zones=[
+        {x:[-80,vw*0.25],y:[-80,vh*0.35]},
+        {x:[vw*0.7,vw+40],y:[-60,vh*0.4]},
+        {x:[-60,vw*0.28],y:[vh*0.55,vh+60]},
+        {x:[vw*0.65,vw+50],y:[vh*0.5,vh+70]},
+        {x:[vw*0.15,vw*0.4],y:[vh*0.05,vh*0.25]},
+        {x:[vw*0.6,vw*0.85],y:[vh*0.6,vh*0.85]}
+      ];
+      inks.forEach((ink,i)=>{
+        const zone=zones[i%zones.length];
+        const size=random(90,280);
+        const height=size*random(0.7,1.35);
+        ink.style.width=size+'px';
+        ink.style.height=height+'px';
+        ink.style.left=random(zone.x[0],zone.x[1])+'px';
+        ink.style.top=random(zone.y[0],zone.y[1])+'px';
+        ink.style.background=colors[Math.floor(random(0,colors.length))];
+        ink.style.borderRadius=createBorderRadius();
+        ink.style.transform='rotate('+random(-40,40)+'deg)';
+        ink.style.opacity='0';
+        setTimeout(function(){ink.style.opacity=random(0.14,0.27);},180+i*120);
+      });
+    }
+    placeInk();
+
+    const CORRECT_PIN='2208';
+    let entered='', locked=false;
+    const digits=document.querySelectorAll('.digit');
+    const locker=document.getElementById('locker');
+    const pad=document.getElementById('pad');
+
+    function updateDisplay(){
+      digits.forEach(function(el,i){
+        el.classList.remove('filled','error','success');
+        el.innerHTML='';
+        if(entered[i]){el.classList.add('filled');el.innerHTML='<span>'+entered[i]+'</span>';}
+      });
+    }
+    function showError(){
+      digits.forEach(function(el){el.classList.add('error');});
+      setTimeout(function(){entered='';updateDisplay();},500);
+    }
+    function showSuccess(){
+      locked=true;
+      digits.forEach(function(el){el.classList.add('success');});
+      setTimeout(function(){
+        locker.classList.add('leaving');
+        setTimeout(function(){window.location.href='birthday.html';},550);
+      },450);
+    }
+    function handleInput(value){
+      if(locked) return;
+      if(value==='delete'){entered=entered.slice(0,-1);updateDisplay();return;}
+      if(entered.length>=4) return;
+      entered+=value; updateDisplay();
+      if(entered.length===4){
+        if(entered===CORRECT_PIN) showSuccess();
+        else showError();
+      }
+    }
+    pad.addEventListener('click',function(e){
+      var btn=e.target.closest('.key');
+      if(!btn||btn.classList.contains('empty')) return;
+      handleInput(btn.dataset.value);
+    });
+    window.addEventListener('keydown',function(e){
+      if(e.key>='0'&&e.key<='9') handleInput(e.key);
+      if(e.key==='Backspace') handleInput('delete');
+    });
+  </script>
+</body>
+</html>

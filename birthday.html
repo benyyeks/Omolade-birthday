@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Elizabeth Omolade Yekinni</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=La+Belle+Aurore&family=Great+Vibes&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --paper: #f9f3e8;
+      --ink: #3a2e2a;
+      --muted: #8a8178;
+      --accent: #b07d6c;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    #fireworks {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .page { position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.2rem 0.9rem;
+    }
+    .hero-glass {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.78);
+      border-radius: 1.9rem;
+      padding: 4.2rem 1.6rem;
+      width: 100%;
+      max-width: 960px;
+      box-shadow:
+        0 24px 50px -10px rgba(0,0,0,0.13),
+        0 5px 16px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.92),
+        inset 0 -1px 0 rgba(255,255,255,0.12);
+    }
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(3.1rem, 10vw, 5.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+      line-height: 1.05;
+    }
+    .hero .name {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.65rem, 5.5vw, 2.55rem);
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+    .hero .sub { font-size: 1.25rem; color: var(--muted); }
+
+    /* PICTURE GALLERY – continuous bubble, text has NO fill */
+    .gallery {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3.5rem 1.2rem 5rem;
+    }
+    .gallery-title {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: 1.95rem;
+      font-weight: 600;
+      margin-bottom: 2.8rem;
+      color: var(--ink);
+    }
+
+    /* ONE continuous raised bubble */
+    .memory {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.78);
+      border-radius: 1.7rem;
+      overflow: hidden;
+      margin-bottom: 2.4rem;
+      box-shadow:
+        0 16px 38px -8px rgba(0,0,0,0.12),
+        0 4px 12px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .memory:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 22px 48px -8px rgba(0,0,0,0.14),
+        0 6px 16px rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .memory-inner {
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 640px) {
+      .memory-inner {
+        flex-direction: row;
+        align-items: stretch;
+      }
+      .memory.reverse .memory-inner { flex-direction: row-reverse; }
+      .memory-img { width: 48%; flex-shrink: 0; }
+      .memory-text { width: 52%; }
+    }
+
+    .memory-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: #e8dfd0;
+    }
+    .memory-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* CRITICAL: text area is completely transparent – no fill at all */
+    .memory-text {
+      padding: 1.5rem 1.4rem;
+      display: flex;
+      align-items: center;
+      background: transparent !important;
+    }
+    .memory-text p {
+      font-size: 1.12rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: transparent;
+    }
+
+    /* ENVELOPE */
+    .letter-section {
+      padding: 2rem 1rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .letter-section h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.65rem;
+      margin-bottom: 2.4rem;
+      text-align: center;
+    }
+
+    .envelope-box {
+      position: relative;
+      width: min(330px, 90vw);
+      height: 210px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .env-body {
+      position: absolute; inset: 0;
+      background: linear-gradient(165deg, #f0e6d4 0%, #e4d5bc 100%);
+      border-radius: 4px 4px 6px 6px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      overflow: hidden;
+      z-index: 2;
+    }
+    .fold-left, .fold-right {
+      position: absolute; bottom: 0; width: 50%; height: 58%;
+      background: #ddceb5; z-index: 3;
+    }
+    .fold-left { left: 0; clip-path: polygon(0 0, 100% 45%, 100% 100%, 0 100%); }
+    .fold-right { right: 0; clip-path: polygon(0 45%, 100% 0, 100% 100%, 0 100%); }
+
+    .flap {
+      position: absolute; top: 0; left: 0; width: 100%; height: 55%;
+      background: linear-gradient(180deg, #ebe1cd 0%, #e0d1b8 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+      z-index: 6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .seal {
+      position: absolute; top: 38%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 52px; height: 52px; border-radius: 50%;
+      z-index: 8;
+      background: radial-gradient(circle at 30% 25%, #c04a4a, #8b2a2a 50%, #5a1818);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.28), inset 0 2px 4px rgba(255,255,255,0.2), inset 0 -3px 6px rgba(0,0,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .seal::after {
+      content: ""; position: absolute; inset: 5px; border-radius: 50%;
+      border: 1.5px solid rgba(0,0,0,0.2);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .seal span {
+      font-family: "Great Vibes", cursive;
+      font-size: 1.85rem; color: #f7e9c9;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      position: relative; z-index: 1;
+    }
+    .address {
+      position: absolute; bottom: 18px; width: 100%; text-align: center;
+      font-family: "La Belle Aurore", cursive; font-size: 1.05rem;
+      color: #5c4030; z-index: 4; opacity: 0.9;
+      transition: opacity 0.3s ease; pointer-events: none;
+    }
+
+    /* Tip – positioned higher so it sits at the natural opening */
+    .letter-wrapper {
+      position: absolute;
+      left: 50%;
+      bottom: 78px;          /* raised significantly */
+      width: 88%;
+      transform: translateX(-50%);
+      z-index: 5;
+      overflow: hidden;
+      height: 0;
+      transition: height 0.55s cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+    }
+    .letter {
+      background: var(--paper);
+      border-radius: 3px 3px 0 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+    .letter-content {
+      padding: 0.9rem 1.15rem 0.7rem;
+      font-family: "La Belle Aurore", cursive;
+    }
+    .letter-content h3 { font-size: 1.15rem; margin-bottom: 0.3rem; font-weight: 400; }
+    .letter-content p { font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.4rem; }
+
+    /* Stage 1 */
+    .envelope-box.stage1 .flap { transform: rotateX(180deg); }
+    .envelope-box.stage1 .seal {
+      opacity: 0; transform: translate(-50%,-50%) scale(0.5); pointer-events: none;
+    }
+    .envelope-box.stage1 .address { opacity: 0; }
+    .envelope-box.stage1 .letter-wrapper {
+      height: 46px;
+      pointer-events: auto;
+      cursor: pointer;
+      animation: tipShake 2.5s ease-in-out infinite;
+    }
+    @keyframes tipShake {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-5px); }
+      70% { transform: translateX(-50%) translateY(2px); }
+    }
+
+    /* Full letter */
+    .letter-full {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: min(380px, 92vw);
+      background: var(--paper);
+      border-radius: 5px;
+      box-shadow: 0 28px 65px rgba(0,0,0,0.22);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.92);
+      transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    .letter-full.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .letter-full .letter-content {
+      padding: 1.7rem 1.5rem 1.6rem;
+    }
+    .letter-full .letter-content h3 { font-size: 1.4rem; margin-bottom: 0.8rem; }
+    .letter-full .letter-content p { font-size: 1.08rem; line-height: 1.55; margin-bottom: 0.75rem; }
+    .letter-full .sign { margin-top: 1.1rem; font-style: italic; }
+    .letter-full .name { font-size: 1.25rem; margin-top: 0.15rem; }
+
+    .env-hint {
+      margin-top: 1.5rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      transition: opacity 0.3s;
+    }
+    .envelope-box.stage1 ~ .env-hint,
+    .letter-full.visible ~ .env-hint { opacity: 0; }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 3rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-glass">
+        <h1>Happy Birthday</h1>
+        <p class="name">Elizabeth Omolade Yekinni</p>
+        <p class="sub">A quiet celebration for my biggest sis.</p>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2 class="gallery-title">Picture Gallery</h2>
+
+      <article class="memory">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/01-park.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>Looking back at everything we’ve grown through, having you as my biggest sis has been one of the constant highlights of my life. You bring a steady, grounding presence to our family, and I’m always grateful to share the journey with you.</p></div>
+        </div>
+      </article>
+
+      <article class="memory reverse">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/02-outdoor-smile.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>No matter how busy life gets, you always find a way to step up and show up when it counts. That dependability means more than I probably say out loud, biggest sis, and it never goes unnoticed.</p></div>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/03-outdoor-side.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>Some of my absolute favourite memories are just the random moments where we couldn’t stop laughing over nothing. Life is always lighter, calmer, and a lot more enjoyable whenever you’re around, biggest sis.</p></div>
+        </div>
+      </article>
+
+      <article class="memory reverse">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/04-green-tee.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>Watching you tackle challenges and build your own path over the years has been a real privilege. You handle tough moments with a mix of patience and grit that I genuinely respect, biggest sis.</p></div>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/05-stairs.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>You have a natural gift for offering thoughtful perspective without ever overcomplicating things. I’ve learned so much just by watching how you navigate work, decisions, and everyday life, biggest sis.</p></div>
+        </div>
+      </article>
+
+      <article class="memory reverse">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/06-closeup.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>There is a rare comfort in knowing that no matter how much external things shift, our dynamic stays solid. You carry a quiet warmth that makes any place feel familiar and safe, biggest sis.</p></div>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/07-train.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>You pour so much effort and care into the people around you, often behind the scenes. Today is a simple reminder that all the good energy you put into the world deserves to return to you, biggest sis.</p></div>
+        </div>
+      </article>
+
+      <article class="memory reverse">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/08-pattern.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>Photos like this remind me of how effortless it is to just be ourselves together. There’s never any need to put on a performance around you, biggest sis, and that’s a rare thing to find.</p></div>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/09-red-dress.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>I’m genuinely proud of the person you continue to grow into each year. You move through life with integrity, independence, and an authenticity that really stands out, biggest sis.</p></div>
+        </div>
+      </article>
+
+      <article class="memory reverse">
+        <div class="memory-inner">
+          <div class="memory-img"><img src="images/10-black-outfit.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-text"><p>As you step into this next chapter, I hope it brings you genuine peace, steady progress, and the fulfilment of everything you’ve been working toward. Happy Birthday, biggest sis. I’ll always be in your corner.</p></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="letter-section">
+      <h2>A letter for you</h2>
+
+      <div class="envelope-box" id="envelope">
+        <div class="env-body">
+          <div class="fold-left"></div>
+          <div class="fold-right"></div>
+          <div class="address">To: Mrs. Elizabeth Omolade Yekinni</div>
+        </div>
+        <div class="flap"></div>
+        <div class="seal"><span>Y</span></div>
+
+        <div class="letter-wrapper" id="letterTip">
+          <div class="letter">
+            <div class="letter-content">
+              <h3>Dearest Sister,</h3>
+              <p>It has come to the attention of the Ton...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="letter-full" id="letterFull">
+        <div class="letter-content">
+          <h3>Dearest Sister,</h3>
+          <p>It has come to the attention of the Ton and confirmed by Lady Whistledown herself that the esteemed eldest sibling of our household has officially added another year to her grand reign.</p>
+          <p>Though society often wonders how you manage to keep your composure, the truth is universally acknowledged: you are the wise, all-powerful older sister, and I am merely the younger brother destined to test your patience until the end of time. While we may not indulge in endless daily chatter, our alliance is absolute. Thank you for tolerating my chaos, keeping me in check, and occasionally saving me from total ruin like the benevolent elder you are. May your day be filled with royal treatment, zero stress, and the absolute minimum amount of annoyance from me.</p>
+          <p>Happy Birthday to the undisputed queen of the family!</p>
+          <p class="sign">Yours in sibling chaos,</p>
+          <p class="name">Your Favorite Younger Brother</p>
+        </div>
+      </div>
+
+      <p class="env-hint">Tap the envelope to open</p>
+    </section>
+
+    <footer>Made with care for my biggest sis.</footer>
+  </div>
+
+  <script>
+    // Fireworks with trails
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let particles = [], rockets = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function createRocket() {
+      rockets.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height + 20,
+        targetY: 60 + Math.random() * (canvas.height * 0.5),
+        speed: 5.5 + Math.random() * 3.5,
+        hue: Math.random() * 45 + 8,
+        trail: []
+      });
+    }
+
+    function explode(x, y, hue) {
+      const count = 55 + Math.floor(Math.random() * 35);
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+        const speed = 2.2 + Math.random() * 4.5;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 1,
+          decay: 0.01 + Math.random() * 0.012,
+          hue,
+          size: 2.2 + Math.random() * 2.8
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(245, 240, 232, 0.18)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const r = rockets[i];
+        r.trail.push({ x: r.x, y: r.y });
+        if (r.trail.length > 12) r.trail.shift();
+        r.y -= r.speed;
+
+        for (let t = 0; t < r.trail.length; t++) {
+          const p = r.trail[t];
+          const alpha = (t / r.trail.length) * 0.6;
+          const size = (t / r.trail.length) * 2.8;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          ctx.fillStyle = 'hsla(' + r.hue + ',75%,60%,' + alpha + ')';
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'hsla(' + r.hue + ',80%,65%,0.95)';
+        ctx.fill();
+
+        if (r.y <= r.targetY) {
+          explode(r.x, r.y, r.hue);
+          rockets.splice(i, 1);
+        }
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.045;
+        p.life -= p.decay;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fillStyle = 'hsla(' + p.hue + ',80%,65%,' + p.life + ')';
+        ctx.fill();
+      }
+      requestAnimationFrame(animate);
+    }
+    setInterval(function() {
+      if (!document.hidden && Math.random() > 0.35) createRocket();
+    }, 750);
+    animate();
+
+    // Envelope
+    const box = document.getElementById('envelope');
+    const tip = document.getElementById('letterTip');
+    const full = document.getElementById('letterFull');
+    let stage = 0;
+
+    function setStage(n) {
+      stage = n;
+      box.classList.remove('stage1');
+      full.classList.remove('visible');
+      if (n === 1) box.classList.add('stage1');
+      if (n === 2) {
+        box.classList.add('stage1');
+        full.classList.add('visible');
+      }
+    }
+
+    box.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (stage === 0) setStage(1);
+    });
+    tip.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (stage === 1) setStage(2);
+    });
+    full.addEventListener('click', function(e) { e.stopPropagation(); });
+    document.addEventListener('click', function() {
+      if (stage > 0) setStage(0);
+    });
+  </script>
+</body>
+</html>
