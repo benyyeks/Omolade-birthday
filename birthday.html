@@ -38,30 +38,31 @@
       padding: 1.2rem 0.9rem;
     }
     .hero-glass {
-      background: rgba(255,255,255,0.22);
-      border: 1px solid rgba(255,255,255,0.78);
       border-radius: 1.9rem;
       padding: 4.2rem 1.6rem;
       width: 100%;
       max-width: 960px;
+      max-height: 55dvh;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.75);
       box-shadow:
-        0 24px 50px -10px rgba(0,0,0,0.13),
-        0 5px 16px rgba(0,0,0,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.92),
-        inset 0 -1px 0 rgba(255,255,255,0.12);
+        0 18px 40px -8px rgba(0,0,0,0.12),
+        0 4px 12px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -3px 0 rgba(255,255,255,0.15);
     }
     .hero h1 {
       font-family: "Playfair Display", serif;
-      font-size: clamp(3.1rem, 10vw, 5.2rem);
+      font-size: clamp(5.5rem, 10vw, 5.2rem);
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--ink);
       margin-bottom: 0.3rem;
-      line-height: 1.05;
+      line-height: 1.06;
     }
     .hero .name {
       font-family: "Playfair Display", serif;
-      font-size: clamp(1.65rem, 5.5vw, 2.55rem);
+      font-size: clamp(2.5rem, 5.5vw, 2.55rem);
       font-weight: 600;
       color: var(--accent);
       margin-bottom: 1.1rem;
@@ -88,16 +89,17 @@
 
     /* One raised bubble containing both photo + text */
     .memory {
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.75);
+
       border-radius: 1.7rem;
       overflow: hidden;
       margin-bottom: 2.4rem;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.75);
       box-shadow:
-        0 16px 38px -8px rgba(0,0,0,0.12),
+        0 18px 40px -8px rgba(0,0,0,0.12),
         0 4px 12px rgba(0,0,0,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.88);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(255,255,255,0.15);
     }
     .memory:hover {
       transform: translateY(-4px);
@@ -134,6 +136,7 @@
       padding: 1.5rem 1.35rem;
       display: flex;
       align-items: center;
+      background: none;
     }
     .memory-text p {
       font-size: 1.12rem;
@@ -371,14 +374,14 @@
 
       <article class="memory reverse">
         <div class="memory-inner">
-          <div class="memory-img"><img src="/8images/08-pattern.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/08-pattern.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>Photos like this remind me of how effortless it is to just be ourselves together. There’s never any need to put on a performance around you, biggest sis, and that’s a rare thing to find.</p></div>
         </div>
       </article>
 
       <article class="memory">
         <div class="memory-inner">
-          <div class="memory-img"><img src="/9images/09-red-dress.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/09-red-dress.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>I’m genuinely proud of the person you continue to grow into each year. You move through life with integrity, independence, and an authenticity that really stands out, biggest sis.</p></div>
         </div>
       </article>
