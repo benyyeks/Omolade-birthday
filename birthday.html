@@ -27,7 +27,7 @@
     }
     .page { position: relative; z-index: 1; }
 
-    /* HERO */
+    /* ===== HERO – taller + bigger text ===== */
     .hero {
       min-height: 100dvh;
       display: flex;
@@ -38,7 +38,7 @@
       padding: 1.2rem 0.9rem;
     }
     .hero-glass {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.22);
       border: 1px solid rgba(255,255,255,0.78);
       border-radius: 1.9rem;
       padding: 4.2rem 1.6rem;
@@ -66,9 +66,12 @@
       color: var(--accent);
       margin-bottom: 1.1rem;
     }
-    .hero .sub { font-size: 1.25rem; color: var(--muted); }
+    .hero .sub {
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
 
-    /* PICTURE GALLERY – continuous bubble, text has NO fill */
+    /* ===== PICTURE GALLERY – unified bubble cards ===== */
     .gallery {
       max-width: 720px;
       margin: 0 auto;
@@ -83,17 +86,17 @@
       color: var(--ink);
     }
 
-    /* ONE continuous raised bubble */
+    /* One raised bubble containing both photo + text */
     .memory {
-      background: rgba(255,255,255,0.16);
-      border: 1px solid rgba(255,255,255,0.78);
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.75);
       border-radius: 1.7rem;
       overflow: hidden;
       margin-bottom: 2.4rem;
       box-shadow:
         0 16px 38px -8px rgba(0,0,0,0.12),
         0 4px 12px rgba(0,0,0,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.9);
+        inset 0 1px 0 rgba(255,255,255,0.88);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .memory:hover {
@@ -101,21 +104,20 @@
       box-shadow:
         0 22px 48px -8px rgba(0,0,0,0.14),
         0 6px 16px rgba(0,0,0,0.05),
-        inset 0 1px 0 rgba(255,255,255,0.95);
+        inset 0 1px 0 rgba(255,255,255,0.92);
     }
 
     .memory-inner {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
     }
     @media (min-width: 640px) {
       .memory-inner {
-        flex-direction: row;
+        grid-template-columns: 1fr 1fr;
         align-items: stretch;
       }
-      .memory.reverse .memory-inner { flex-direction: row-reverse; }
-      .memory-img { width: 48%; flex-shrink: 0; }
-      .memory-text { width: 52%; }
+      .memory.reverse .memory-img { order: 2; }
+      .memory.reverse .memory-text { order: 1; }
     }
 
     .memory-img {
@@ -128,22 +130,18 @@
       width: 100%; height: 100%;
       object-fit: cover; display: block;
     }
-
-    /* CRITICAL: text area is completely transparent – no fill at all */
     .memory-text {
-      padding: 1.5rem 1.4rem;
+      padding: 1.5rem 1.35rem;
       display: flex;
       align-items: center;
-      background: none !important;
     }
     .memory-text p {
       font-size: 1.12rem;
       line-height: 1.65;
       color: var(--ink);
-      background: transparent;
     }
 
-    /* ENVELOPE */
+    /* ===== ENVELOPE ===== */
     .letter-section {
       padding: 2rem 1rem 6rem;
       display: flex;
@@ -218,12 +216,12 @@
       transition: opacity 0.3s ease; pointer-events: none;
     }
 
-    /* Tip – positioned higher so it sits at the natural opening */
+    /* Tip wrapper – higher position */
     .letter-wrapper {
       position: absolute;
       left: 50%;
-      bottom: 90px;          /* raised significantly */
-      width: 88%;
+      bottom: 55px;          /* higher so tip sits properly at the opening */
+      width: 90%;
       transform: translateX(-50%);
       z-index: 5;
       overflow: hidden;
@@ -238,11 +236,11 @@
       width: 100%;
     }
     .letter-content {
-      padding: 0.9rem 1.15rem 0.7rem;
+      padding: 1.1rem 1.2rem 0.9rem;
       font-family: "La Belle Aurore", cursive;
     }
-    .letter-content h3 { font-size: 1.15rem; margin-bottom: 0.3rem; font-weight: 400; }
-    .letter-content p { font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.4rem; }
+    .letter-content h3 { font-size: 1.2rem; margin-bottom: 0.4rem; font-weight: 400; }
+    .letter-content p { font-size: 0.95rem; line-height: 1.45; margin-bottom: 0.5rem; }
 
     /* Stage 1 */
     .envelope-box.stage1 .flap { transform: rotateX(180deg); }
@@ -251,7 +249,7 @@
     }
     .envelope-box.stage1 .address { opacity: 0; }
     .envelope-box.stage1 .letter-wrapper {
-      height: 46px;
+      height: 52px;
       pointer-events: auto;
       cursor: pointer;
       animation: tipShake 2.5s ease-in-out infinite;
@@ -262,7 +260,7 @@
       70% { transform: translateX(-50%) translateY(2px); }
     }
 
-    /* Full letter */
+    /* Full letter centered */
     .letter-full {
       position: fixed;
       left: 50%;
@@ -324,70 +322,70 @@
 
       <article class="memory">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/01-park.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/01-park.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>Looking back at everything we’ve grown through, having you as my biggest sis has been one of the constant highlights of my life. You bring a steady, grounding presence to our family, and I’m always grateful to share the journey with you.</p></div>
         </div>
       </article>
 
       <article class="memory reverse">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/02-outdoor-smile.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/02-outdoor-smile.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>No matter how busy life gets, you always find a way to step up and show up when it counts. That dependability means more than I probably say out loud, biggest sis, and it never goes unnoticed.</p></div>
         </div>
       </article>
 
       <article class="memory">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/03-outdoor-side.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/03-outdoor-side.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>Some of my absolute favourite memories are just the random moments where we couldn’t stop laughing over nothing. Life is always lighter, calmer, and a lot more enjoyable whenever you’re around, biggest sis.</p></div>
         </div>
       </article>
 
       <article class="memory reverse">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/04-green-tee.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/04-green-tee.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>Watching you tackle challenges and build your own path over the years has been a real privilege. You handle tough moments with a mix of patience and grit that I genuinely respect, biggest sis.</p></div>
         </div>
       </article>
 
       <article class="memory">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/05-stairs.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/05-stairs.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>You have a natural gift for offering thoughtful perspective without ever overcomplicating things. I’ve learned so much just by watching how you navigate work, decisions, and everyday life, biggest sis.</p></div>
         </div>
       </article>
 
       <article class="memory reverse">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/06-closeup.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/06-closeup.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>There is a rare comfort in knowing that no matter how much external things shift, our dynamic stays solid. You carry a quiet warmth that makes any place feel familiar and safe, biggest sis.</p></div>
         </div>
       </article>
 
       <article class="memory">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/07-train.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/07-train.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>You pour so much effort and care into the people around you, often behind the scenes. Today is a simple reminder that all the good energy you put into the world deserves to return to you, biggest sis.</p></div>
         </div>
       </article>
 
       <article class="memory reverse">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/08-pattern.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/8images/08-pattern.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>Photos like this remind me of how effortless it is to just be ourselves together. There’s never any need to put on a performance around you, biggest sis, and that’s a rare thing to find.</p></div>
         </div>
       </article>
 
       <article class="memory">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/09-red-dress.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/9images/09-red-dress.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>I’m genuinely proud of the person you continue to grow into each year. You move through life with integrity, independence, and an authenticity that really stands out, biggest sis.</p></div>
         </div>
       </article>
 
       <article class="memory reverse">
         <div class="memory-inner">
-          <div class="memory-img"><img src="images/10-black-outfit.jpg" alt="" loading="lazy" /></div>
+          <div class="memory-img"><img src="/10-black-outfit.jpg" alt="" loading="lazy" /></div>
           <div class="memory-text"><p>As you step into this next chapter, I hope it brings you genuine peace, steady progress, and the fulfilment of everything you’ve been working toward. Happy Birthday, biggest sis. I’ll always be in your corner.</p></div>
         </div>
       </article>
@@ -433,7 +431,7 @@
   </div>
 
   <script>
-    // Fireworks with trails
+    // Fireworks – bigger + trails
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
     let particles = [], rockets = [];
@@ -474,15 +472,19 @@
     }
 
     function animate() {
+      // Soft trail fade
       ctx.fillStyle = 'rgba(245, 240, 232, 0.18)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Rockets + trails
       for (let i = rockets.length - 1; i >= 0; i--) {
         const r = rockets[i];
         r.trail.push({ x: r.x, y: r.y });
         if (r.trail.length > 12) r.trail.shift();
+
         r.y -= r.speed;
 
+        // Draw trail
         for (let t = 0; t < r.trail.length; t++) {
           const p = r.trail[t];
           const alpha = (t / r.trail.length) * 0.6;
@@ -493,6 +495,7 @@
           ctx.fill();
         }
 
+        // Rocket head
         ctx.beginPath();
         ctx.arc(r.x, r.y, 3.2, 0, Math.PI * 2);
         ctx.fillStyle = 'hsla(' + r.hue + ',80%,65%,0.95)';
@@ -504,6 +507,7 @@
         }
       }
 
+      // Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
@@ -511,13 +515,16 @@
         p.vy += 0.045;
         p.life -= p.decay;
         if (p.life <= 0) { particles.splice(i, 1); continue; }
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
         ctx.fillStyle = 'hsla(' + p.hue + ',80%,65%,' + p.life + ')';
         ctx.fill();
       }
+
       requestAnimationFrame(animate);
     }
+
     setInterval(function() {
       if (!document.hidden && Math.random() > 0.35) createRocket();
     }, 750);
